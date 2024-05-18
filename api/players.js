@@ -69,8 +69,4 @@ playerRouter.get('/update/:id',updatePlayer);
 playerRouter.get('/delete/:id',deletePlayer);
 playerRouter.get('/:id',getAllPlayers);
 
-playerRouter.get('/aa',(req,res) =>{
-    req.params.id
-})
-
 module.exports = playerRouter;
