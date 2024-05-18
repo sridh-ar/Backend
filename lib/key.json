@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rational-autumn-423705-a4",
+  "private_key_id": "eaf364a95378ea9721cae8e3f80c5b7c69f1b2d8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCkO4bAL7ZuprvA\nLGTxn5eYzk93Ywu0cZj36lChhYGOYQwpymZL7RghP8YlZt+c2YlrjwFxb3xjee7i\nNdAfKzCHOY/Bd0fc2FPdJqXt0pIboax1X5X5NiEniM0aDdQOnx0Ra9IsG7LeHH+p\nCNdFgcPQhpP40hlekeuw5qaBgjvjK7KxrNLryZocBY2BgC8/Y2WvRhmW0fe30Ohh\nPH5WPPVJ1JhqJzjZeFeLygIFf2g+nDz3w8b3+qyiT/QU0ejxCqF+YBRjARtTac+M\nA3LZ4MLF+i0zar41Wh6nwmJ3GGRgrgzaUN/30efNTbFB++xRl19XI1e2R+igpvDT\n8IJBcWMfAgMBAAECggEAA6tRl/4Fs5rFod+1pAq7Wbs6RHuRz/oKjEQ2GvW41RQb\n/NvVxadKNuv0b4xJCkZEVYMNA2cvPnW2vZas/xVGJBWuilVk5W073aDQa9Jpi0Gy\nCnx60eXz5azSKd10BtBm10EACBY/Iv4JNOvKpQ+AiKpV25hHrGvSk56dMVJWJ8qE\nwWKmz+Bd+7wnoXVitq90pB/w88BdZNxOb4tj1P4uSmmAH3tyojFFTjxnhC05UnBg\nnHN8Gb2CVal3RELEpJmSVBYAkI5zR1ZqCdkIvYafhoii4P7E7saoLrXvanTKxs5W\nxHe+16hGtpa9dsTwb1lta4OI64IQaspo66+GFHpgOQKBgQDcRLdFInI09M9m4Adk\nDdIWzXc785k0ZAzGxkZ9eclkA4ztP7Mt5PxRJA8OiY37Pq2m/J8yn/WzD9iLlyyW\nukvpCkZZI1SxhrkqDP7x/47MduaPr70n6Dkk6IO0lY9CxYUiS12h+VdZg+dDGK1U\naDL8+Veggxvkw6IZNkyaq5bS/QKBgQC+38HxEqw3gJC5SKaJXyLbfc2O+oQg3KXe\nAONMtaKDxzVJbv7YWXQa6abaWHYKsagL/iIj4fdTBmt/ILrg0YucJ4huU5pCQMRo\nU5MjtI+r550AgMRvCroAmz4HFeqLzc7g5/VtBoAn46tOz50hbMpkFxBIImPfNRks\nkjKvQHPPSwKBgE2eUU6lYsVSdztzOmeBj0TFxnxzzMrvbqkk+XYB0nvR3HlF9yf3\nBwq4wC2JP2UHoz2yy46VW4lrzgzyip3arCFEo6GJl7CvHtS4m6Y/PdzDEWAUt302\nkdx1quOZyE/pNo7tK+OF78f1eSrlqT6TMVR/sOc5DD1Cyv5Dah8e1BkpAoGAfNt1\nzDKAwRWyleE2PyoibR3P9zVcdPqg7aX7CdTO6BDJhK28ut1ZG7m30aCIJtqrqJym\nzH4mAQN0Egbg9+tavd0GW9UIVUp0sCHrYDHewX6Srx+MX27O2VKzsoLdmHIaX/ic\nDKNx9aXyC223xYOaqPqFRgpo9juPqh5AVW990h0CgYEAmi8yQOj5cRBpXvXulVNr\nXgkKfkEiC+VApy/hW19M8YXmrZi6bCZjkZtXNuPOZc4cLkzNYpUbhQW57Bh/+RIt\n9Mx7O1xIp3ZInQt4AK7h4k2b2+6qg+l8Gkh/uOIOk8Pt/GNwpqzWHtPuCMPP/pTN\nAzJQ+z+IHRhwYQjx3DAPITI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sridhar@rational-autumn-423705-a4.iam.gserviceaccount.com",
+  "client_id": "111654428452309712317",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sridhar%40rational-autumn-423705-a4.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
