@@ -17,7 +17,7 @@ const auth = new google.auth.GoogleAuth({
 
 const driveService = google.drive({ version: 'v3', auth });
 
-uploadRouter.post('/', upload.single('file'), async (req, res) => {
+uploadRouter.post('/', async (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
