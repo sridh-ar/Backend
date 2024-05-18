@@ -1,13 +1,13 @@
 const express = require('express');
 const uploadRouter = express.Router();
-
 const multer = require('multer');
 const { google } = require('googleapis');
-const fs = require('fs');
+const { Readable } = require('stream');
 
-const upload = multer({ dest: 'uploads/' });
+// Configure multer to use memory storage
+const upload = multer({ storage: multer.memoryStorage() });
 
-const KEYFILEPATH = 'lib\\key.json';
+const KEYFILEPATH = 'lib/key.json';
 const FOLDER_ID = '1Z4JeKEAo2IYUfFch2XQMXzuqFeRl264g';
 
 const auth = new google.auth.GoogleAuth({
@@ -17,7 +17,14 @@ const auth = new google.auth.GoogleAuth({
 
 const driveService = google.drive({ version: 'v3', auth });
 
-uploadRouter.post('/', async (req, res) => {
+function bufferToStream(buffer) {
+  const stream = new Readable();
+  stream.push(buffer);
+  stream.push(null); // Signifies the end of the stream
+  return stream;
+}
+
+uploadRouter.post('/', upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
@@ -29,7 +36,7 @@ uploadRouter.post('/', async (req, res) => {
 
   const media = {
     mimeType: req.file.mimetype,
-    body: fs.createReadStream(req.file.path),
+    body: bufferToStream(req.file.buffer),
   };
 
   try {
@@ -39,18 +46,16 @@ uploadRouter.post('/', async (req, res) => {
       fields: 'id',
     });
 
-     // Make the file public
-     await driveService.permissions.create({
-        fileId: file.data.id,
-        requestBody: {
-          role: 'reader',
-          type: 'anyone',
-        },
-      });
+    // Make the file public
+    await driveService.permissions.create({
+      fileId: file.data.id,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
 
-    fs.unlinkSync(req.file.path); // Remove the file from the server after upload
-
-    res.status(200).send({fileId: file.data.id});
+    res.status(200).send({ fileId: file.data.id });
   } catch (error) {
     res.status(500).send('Error uploading file: ' + error.message);
   }
