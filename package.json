@@ -10,6 +10,7 @@
   "author": "Sridhar",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "nodemon": "^3.1.0",
     "pg-promise": "^11.6.0"

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 
 // File Imports
@@ -11,6 +12,7 @@ const teamPlayerRouter = require("./teamPlayer");
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 app.use("/admin", adminRouter);
 app.use("/main", mainRouter);
 app.use("/player", playerRouter);
