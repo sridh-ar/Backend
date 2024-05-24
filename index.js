@@ -10,13 +10,14 @@ const teamRouter = require("./api/team");
 const teamPlayerRouter = require("./api/teamPlayer");
 
 // Middleware
+app.use(express.json());
 app.use("/admin", adminRouter);
 app.use("/main", mainRouter);
 app.use("/player", playerRouter);
 app.use("/team", teamRouter);
 app.use("/teamPlayer", teamPlayerRouter);
 
-const server = app.listen("3001", () => {
+const server = app.listen(3001, () => {
   console.log("Server is Running in the port 3001");
 });
 
