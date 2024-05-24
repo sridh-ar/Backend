@@ -35,7 +35,18 @@ async function deleteConfig(name) {
 }
 
 async function getAllConfig() {
-  return await db.manyOrNone(`select * from config`);
+  return await db.manyOrNone(`
+    select config_name,config_value from config
+    union
+    select 'totalRegisteredPlayers', count(*) from player
+    union
+    select 
+        'remainingSlots',
+        (select config_value from config where config_name = 'allowedRegistrationCount') - 
+        (select config_value from config where config_name = 'allowedRegistrationCount') - 
+
+    from player
+`);
 }
 
 // Routes
