@@ -17,8 +17,8 @@ app.use("/player", playerRouter);
 app.use("/team", teamRouter);
 app.use("/teamPlayer", teamPlayerRouter);
 
-const server = app.listen(3001, () => {
+app.listen(3001, () => {
   console.log("Server is Running in the port 3001");
 });
 
-module.exports = { app, server };
+module.exports = app;
