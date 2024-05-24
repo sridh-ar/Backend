@@ -3,11 +3,11 @@ const app = express();
 
 // File Imports
 
-const adminRouter = require("./api/admin");
-const mainRouter = require("./api/main");
-const playerRouter = require("./api/player");
-const teamRouter = require("./api/team");
-const teamPlayerRouter = require("./api/teamPlayer");
+const adminRouter = require("./admin");
+const mainRouter = require("./main");
+const playerRouter = require("./player");
+const teamRouter = require("./team");
+const teamPlayerRouter = require("./teamPlayer");
 
 // Middleware
 app.use(express.json());
