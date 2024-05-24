@@ -42,7 +42,7 @@ async function getAllConfig() {
     union
     select 
         'remainingSlots',
-        (count(*) - (select config_value::int from config where config_name = 'allowedRegistrationCount'))::text
+        ((select config_value::int from config where config_name = 'allowedRegistrationCount') - count(*))::text
     from player;
 `);
 }
