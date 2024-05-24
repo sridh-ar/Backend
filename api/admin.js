@@ -38,12 +38,12 @@ async function getAllConfig() {
   return await db.manyOrNone(`
     select config_name,config_value from config
     union
-    select 'totalRegisteredPlayers', count(*) from player
+    select 'totalRegisteredPlayers', count(*)::text from player
     union
     select 
         'remainingSlots',
-        count(*) - (select config_value from config where config_name = 'allowedRegistrationCount')
-    from player
+        (count(*) - (select config_value::int from config where config_name = 'allowedRegistrationCount'))::text
+    from player;
 `);
 }
 
