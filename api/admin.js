@@ -42,9 +42,7 @@ async function getAllConfig() {
     union
     select 
         'remainingSlots',
-        (select config_value from config where config_name = 'allowedRegistrationCount') - 
-        (select config_value from config where config_name = 'allowedRegistrationCount') - 
-
+        count(*) - (select config_value from config where config_name = 'allowedRegistrationCount')
     from player
 `);
 }
