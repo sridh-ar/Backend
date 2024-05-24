@@ -39,7 +39,7 @@ async function getAllTeamPlayer() {
 }
 
 // Routes
-teamPlayerRouter.get(
+teamPlayerRouter.post(
   "/create",
   handleAsync(async (req, res) => {
     const data = req.body;
@@ -48,7 +48,7 @@ teamPlayerRouter.get(
   })
 );
 
-teamPlayerRouter.get(
+teamPlayerRouter.put(
   "/update/:id",
   handleAsync(async (req, res) => {
     const data = req.body;
@@ -59,7 +59,7 @@ teamPlayerRouter.get(
   })
 );
 
-teamPlayerRouter.get(
+teamPlayerRouter.put(
   "/delete/:id",
   handleAsync(async (req, res) => {
     const result = await deleteTeamPlayerById(req.params.id);
