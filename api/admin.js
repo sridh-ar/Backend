@@ -67,13 +67,12 @@ adminRouter.put("/update/:name", handleAsync(async (req, res) => {
     const data = req.body;
     let selectResult = await getOneConfig(req.params.name);
     Object.assign(selectResult, data);
-    console.log({selectResult});
     const result = await updateConfig(selectResult);
     res.status(200).json(result);
   })
 );
 
-adminRouter.put("/delete/:id", handleAsync(async (req, res) => {
+adminRouter.put("/delete/:name", handleAsync(async (req, res) => {
     const result = await deleteConfig(req.params.name);
     res.status(200).json(result);
   })
