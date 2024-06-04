@@ -25,8 +25,8 @@ async function insertConfig(data) {
 }
 
 async function updateConfig(data) {
-  return await db.manyOrNone(
-    pgpHelpers.update(data, null, { table: "config" }) + " returning *"
+  return await db.oneOrNone(
+    pgpHelpers.update(data, null, { table: "config" }) + ` where config_name = '${data.config_name}'  returning *`
   );
 }
 
