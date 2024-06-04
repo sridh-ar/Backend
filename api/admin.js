@@ -68,7 +68,7 @@ adminRouter.put("/update/:name", handleAsync(async (req, res) => {
     let selectResult = await getOneConfig(req.params.name);
     Object.assign(selectResult, data);
     console.log({selectResult});
-    const result = await updateConfig(data);
+    const result = await updateConfig(selectResult);
     res.status(200).json(result);
   })
 );
