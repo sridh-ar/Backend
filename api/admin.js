@@ -20,13 +20,13 @@ function handleAsync(fn) {
 // Database operations
 async function insertConfig(data) {
   return await db.oneOrNone(
-    pgpHelpers.insert(data, null, { table: "config" }) + " returning id"
+    pgpHelpers.insert(data, null, { table: "config" }) + " returning *"
   );
 }
 
 async function updateConfig(data) {
   return await db.oneOrNone(
-    pgpHelpers.update(data, null, { table: "config" }) + " returning id"
+    pgpHelpers.update(data, null, { table: "config" }) + " returning *"
   );
 }
 
@@ -34,7 +34,7 @@ async function deleteConfig(name) {
   return await db.oneOrNone(`delete from config where config_name = '${name}'`);
 }
 
-async function getAllConfig() {
+async function getDashBoardConfig() {
   return await db.manyOrNone(`
     select config_name,config_value from config
     union
@@ -47,39 +47,45 @@ async function getAllConfig() {
 `);
 }
 
+async function getAllConfig() {
+  return await db.manyOrNone(`select config_name,config_value from config`);
+}
+
+async function getOneConfig(config_name) {
+  return await db.oneOrNone(`select config_name,config_value from config where config_name = '${config_name}'`);
+}
+
 // Routes
-adminRouter.post(
-  "/create",
-  handleAsync(async (req, res) => {
+adminRouter.post("/create", handleAsync(async (req, res) => {
     const data = req.body;
     const result = await insertConfig(data);
     res.status(200).json(result);
   })
 );
 
-adminRouter.put(
-  "/update/:id",
-  handleAsync(async (req, res) => {
+adminRouter.put("/update/:name", handleAsync(async (req, res) => {
     const data = req.body;
-    let selectResult = await getAllConfig();
+    let selectResult = await getOneConfig(req.params.name);
     Object.assign(selectResult, data);
-    const result = await updatePlayer(data);
+    const result = await updateConfig(data);
     res.status(200).json(result);
   })
 );
 
-adminRouter.put(
-  "/delete/:id",
-  handleAsync(async (req, res) => {
+adminRouter.put("/delete/:id", handleAsync(async (req, res) => {
     const result = await deleteConfig(req.params.name);
     res.status(200).json(result);
   })
 );
 
-adminRouter.get(
-  "/",
-  handleAsync(async (req, res) => {
+adminRouter.get("/", handleAsync(async (req, res) => {
     const result = await getAllConfig();
+    res.status(200).json(result);
+  })
+);
+
+adminRouter.get("/dashboard", handleAsync(async (req, res) => {
+    const result = await getDashBoardConfig();
     res.status(200).json(result);
   })
 );
