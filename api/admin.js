@@ -159,7 +159,7 @@ adminRouter.get("/getlogo", handleAsync(async (req, res) => {
 );
 
 adminRouter.post("/uploadlogo", handleAsync(async (req, res) => {
-  const result = await db.oneOrNone(`update images set data = $1 returning data`,[req.body.data]);
+  const result = await db.oneOrNone(`update images set data = $1 returning name`,[req.body.data]);
   res.status(200).json(result);
 })
 );
