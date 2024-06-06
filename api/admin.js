@@ -58,7 +58,9 @@ async function getOneConfig(config_name) {
 async function resetIds(){
   try{
     let {config_value} = await db.manyOrNone(`select config_value from config where config_name = 'ResetIDTableNames'`)
+    console.log(config_value);
     config_value = config_value?.split(',');
+    console.log(config_value,1);
   
     config_value.map(async tableName =>{
       const {seq_name} = await db.oneOrNone(`
