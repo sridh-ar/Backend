@@ -55,6 +55,56 @@ async function getOneConfig(config_name) {
   return await db.oneOrNone(`select config_name,config_value from config where config_name = '${config_name}'`);
 }
 
+async function resetIds(){
+  try{
+    let {config_value} = await db.manyOrNone(`select config_value from config where config_name = 'ResetIDTableNames'`)
+    config_value = config_value?.split(',');
+  
+    config_value.map(async tableName =>{
+      const {seq_name} = await db.oneOrNone(`
+        SELECT substring(column_default FROM '''(.*)''::REGCLASS') AS seq_name from
+        information_schema.columns where table_name = '${tableName}' and column_default is not NULL LIMIT 1`
+      );
+      if(seq_name){
+        db.none(`
+          ALTER SEQUENCE ${seq_name} RESTART;
+          UPDATE ${tableName} SET id = DEFAULT;
+        `)
+      }
+    })
+    return true;
+  }
+  catch(error){
+    console.log(`[Admin API][ResetIds] Error - `,error.message);
+    throw new Error(error.message);
+  }
+}
+
+async function resetApplication(){
+  try{
+    let {config_value} = await db.manyOrNone(`select config_value from config where config_name = 'ResetAppTableNames'`)
+    config_value = config_value?.split(',');
+  
+    config_value.map(async tableName =>{
+      const {seq_name} = await db.oneOrNone(`
+        SELECT substring(column_default FROM '''(.*)''::REGCLASS') AS seq_name from
+        information_schema.columns where table_name = '${tableName}' and column_default is not NULL LIMIT 1`
+      );
+      if(seq_name){
+        db.none(`
+          ALTER SEQUENCE ${seq_name} RESTART;
+          TRUNCATE TABLE ${tableName};
+        `)
+      }
+    })
+    return true;
+  }
+  catch(error){
+    console.log(`[Admin API][ResetApplication] Error - `,error.message);
+    throw new Error(error.message);
+  }  
+}
+
 // Routes
 adminRouter.post("/create", handleAsync(async (req, res) => {
     const data = req.body;
@@ -90,4 +140,15 @@ adminRouter.get("/dashboard", handleAsync(async (req, res) => {
   })
 );
 
+adminRouter.get("/resetid", handleAsync(async (req, res) => {
+    const result = await resetIds();
+    res.status(200).json(result);
+  })
+);
+
+adminRouter.get("/resetapplication", handleAsync(async (req, res) => {
+    const result = await resetApplication();
+    res.status(200).json(result);
+  })
+);
 module.exports = adminRouter;
