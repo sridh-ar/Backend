@@ -11,7 +11,8 @@ const teamRouter = require("./team");
 const teamPlayerRouter = require("./teamPlayer");
 
 // Middleware
-app.use(express.json());
+app.use(express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }))
+app.use(express.json({ limit: "50mb", extended: true, parameterLimit: 50000 }))
 app.use(cors());
 app.use("/admin", adminRouter);
 app.use("/main", mainRouter);

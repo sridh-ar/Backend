@@ -146,9 +146,22 @@ adminRouter.get("/resetid", handleAsync(async (req, res) => {
   })
 );
 
-adminRouter.get("/resetapplication", handleAsync(async (req, res) => {
+adminRouter.post("/resetapplication", handleAsync(async (req, res) => {
     const result = await resetApplication();
     res.status(200).json(result);
   })
 );
+
+adminRouter.get("/getlogo", handleAsync(async (req, res) => {
+    const result = await db.oneOrNone(`select data from images limit 1`);
+    res.status(200).json(result);
+  })
+);
+
+adminRouter.post("/uploadlogo", handleAsync(async (req, res) => {
+  const result = await db.oneOrNone(`update images set data = $1 returning name`,[req.body.data]);
+  res.status(200).json(result);
+})
+);
+
 module.exports = adminRouter;
