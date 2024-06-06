@@ -43,7 +43,9 @@ async function getDashBoardConfig() {
     select 
         'remainingSlots',
         ((select config_value::int from config where config_name = 'allowedRegistrationCount') - count(*))::text
-    from player;
+    from player
+    union
+    select 'logo', data from images;
 `);
 }
 
