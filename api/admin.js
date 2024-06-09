@@ -148,7 +148,7 @@ adminRouter.get("/resetid", handleAsync(async (req, res) => {
   })
 );
 
-adminRouter.post("/resetapplication", handleAsync(async (req, res) => {
+adminRouter.get("/resetapplication", handleAsync(async (req, res) => {
     const result = await resetApplication();
     res.status(200).json(result);
   })
