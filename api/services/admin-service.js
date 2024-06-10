@@ -1,3 +1,4 @@
+const { db, pgpHelpers } = require("../../utils/database");
 
 async function insertConfig(data) {
     return await db.oneOrNone(
