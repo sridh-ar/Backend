@@ -2,7 +2,7 @@ const { Router } = require("express");
 const adminRouter = Router();
 const { handleAsync } = require("./services/common-service.js");
 const { insertConfig, updateConfig, deleteConfig, getAllConfig, 
-  getDashBoardConfig, resetIds, resetApplication } = require("./services/admin-service.js");
+  getDashBoardConfig, resetIds, resetApplication, getOneConfig} = require("./services/admin-service.js");
 
 // Routes - /admin
 adminRouter.post("/create", handleAsync(async (req, res) => {
