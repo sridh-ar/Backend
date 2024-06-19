@@ -19,9 +19,21 @@ function handleAsync(fn) {
 
 // Database operations
 async function insertTeamPlayer(data) {
-  return await db.oneOrNone(
-    pgpHelpers.insert(data, null, { table: "team_players" }) + " returning id"
-  );
+  const existingData = await db.oneOrNone(`select 1 from team_players where player_no = '${data.player_no}'`);
+  if(existingData){
+    throw new Error("Player already part of an other team")
+  }
+  else{
+    const createdId = await db.oneOrNone(
+      pgpHelpers.insert(data, null, { table: "team_players" }) + " returning id"
+    );
+    if(createdId){
+      await db.query(`UPDATE team SET remaining_slots = remaining_slots - 1, 
+        remaining_points_available = remaining_points_available - ${parseInt(data.points)} 
+        WHERE id = ${data.team_id}`);
+    }
+  }
+  return true;
 }
 
 async function updateTeamPlayer(data) {
