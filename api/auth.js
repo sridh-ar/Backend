@@ -25,7 +25,7 @@ function handleAsync(fn) {
 async function generateAccessToken(userDetail) {
   const payload = {
     id: userDetail.id,
-    email: userDetail.email
+    email: userDetail.username
   };
 
   const options = { expiresIn: '1h' };
@@ -34,25 +34,23 @@ async function generateAccessToken(userDetail) {
 }
 
 async function verifyAccessToken(token) {
-    const decoded = jwt.verify(token, secret);
-    return decoded;
-}
-
-async function login(userDetail){
-  const userData = await db.oneOrNone(`select * from users where username = '${userDetail?.username}' limit 1`) 
-  if(!userData){
-    throw new Error("User Not Found!")
-  }
-
-  return generateAccessToken(userDetail);
+  const decoded = jwt.verify(token, secret);
+  return decoded;
 }
 
 // Routes
 authRouter.post("/login", handleAsync(async (req, res) => {
-    const data = req.body;
-    const result = login(data);
-    res.status(200).json(result);
-  })
+  const data = req.body;
+  const userData = await db.oneOrNone(`select * from users where username = '${data?.email}' and password = '${data?.password}' limit 1`)
+  if (!userData) {
+    res.status(500).json({ message: "Invalid Username or Password!" });
+  }
+  else{
+    const token = await generateAccessToken(userData);
+    res.status(200).json(token);
+  }
+
+})
 );
 
 authRouter.post("/validate", handleAsync(async (req, res) => {
