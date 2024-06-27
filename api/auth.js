@@ -25,7 +25,8 @@ function handleAsync(fn) {
 async function generateAccessToken(userDetail) {
   const payload = {
     id: userDetail.id,
-    email: userDetail.username
+    email: userDetail.username,
+    name: userDetail.name
   };
 
   const options = { expiresIn: '1h' };
