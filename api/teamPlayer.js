@@ -52,7 +52,7 @@ async function getAllTeamPlayer() {
 
 async function getTeamPlayerForTeam(team_id) {
   return await db.manyOrNone(`
-    select pl.id,pl.name, contact_number,jersey_name,jersey_size,jersey_no,t.team_name, t.owner from player pl 
+    select pl.id,pl.name, contact_number,jersey_name,jersey_size,jersey_no,t.team_name, t.owner, t.id as team_id from player pl 
     join team_players tp on tp.player_no = pl.id
     join team t on t.id = tp.team_id
     where tp.team_id = '${team_id}'
