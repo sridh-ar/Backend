@@ -42,8 +42,8 @@ async function updateTeamPlayer(data) {
   );
 }
 
-async function deleteTeamPlayerById(id) {
-  return await db.oneOrNone(`delete from team_players where id = '${id}'`);
+async function deleteTeamPlayerById(playerId) {
+  return await db.oneOrNone(`delete from team_players where player_no = '${playerId}'`);
 }
 
 async function getAllTeamPlayer() {
