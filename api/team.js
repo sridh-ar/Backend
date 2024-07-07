@@ -18,7 +18,14 @@ function handleAsync(fn) {
 }
 
 // Database operations
-async function insertTeam(data) {
+async function insertOrUpdateTeam(data) {
+  if(data && data.id){
+    let existingTeam = await db.oneOrNone(`select * from team where id = '${data.id}'`)
+    Object.assign(existingTeam, data)
+    return await db.oneOrNone(
+      pgpHelpers.update(existingTeam, null, { table: "team" }) + " returning id"
+    );
+  }
   return await db.oneOrNone(
     pgpHelpers.insert(data, null, { table: "team" }) + " returning id"
   );
@@ -39,11 +46,9 @@ async function getAllTeam() {
 }
 
 // Routes
-teamRouter.post(
-  "/create",
-  handleAsync(async (req, res) => {
+teamRouter.post("/createorupdate", handleAsync(async (req, res) => {
     const data = req.body;
-    const result = await insertTeam(data);
+    const result = await insertOrUpdateTeam(data);
     res.status(200).json(result);
   })
 );
