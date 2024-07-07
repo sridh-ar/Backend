@@ -18,7 +18,15 @@ function handleAsync(fn) {
 }
 
 // Database operations
-async function insertPlayer(data) {
+async function insertOrUpdatePlayer(data) {
+  if(data && data.id){
+    let existingPlayer = await db.oneOrNone(`select * from player where id = '${data.id}'`)
+    Object.assign(existingPlayer, data)
+    return await db.oneOrNone(
+      pgpHelpers.update(existingPlayer, null, { table: "player" }) + ` where id = '${data.id}' returning id`
+    );
+  }
+  
   return await db.oneOrNone(
     pgpHelpers.insert(data, null, { table: "player" }) + " returning id"
   );
@@ -39,11 +47,9 @@ async function getAllPlayers() {
 }
 
 // Routes
-playerRouter.post(
-  "/create",
-  handleAsync(async (req, res) => {
+playerRouter.post("/createorupdate", handleAsync(async (req, res) => {
     const data = req.body;
-    const result = await insertPlayer(data);
+    const result = await insertOrUpdatePlayer(data);
     res.status(200).json(result);
   })
 );
