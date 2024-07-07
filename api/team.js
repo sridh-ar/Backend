@@ -23,7 +23,7 @@ async function insertOrUpdateTeam(data) {
     let existingTeam = await db.oneOrNone(`select * from team where id = '${data.id}'`)
     Object.assign(existingTeam, data)
     return await db.oneOrNone(
-      pgpHelpers.update(existingTeam, null, { table: "team" }) + " returning id"
+      pgpHelpers.update(existingTeam, null, { table: "team" }) + ` where id = '${data.id}' returning id`
     );
   }
   return await db.oneOrNone(
