@@ -43,7 +43,16 @@ async function updateTeamPlayer(data) {
 }
 
 async function deleteTeamPlayerById(playerId) {
-  return await db.oneOrNone(`delete from team_players where player_no = '${playerId}'`);
+  const deletedPlayer = await db.oneOrNone(`select points, team_id from team_players where player_no = '${playerId}'`)
+  if(deletedPlayer){
+    return await db.query(`
+      UPDATE team SET remaining_slots = remaining_slots + 1, 
+      remaining_points_available = remaining_points_available + ${parseInt(deletedPlayer.points)} 
+      WHERE id = ${deletedPlayer.team_id};
+
+      delete from team_players where player_no = '${playerId}'
+    `);
+  }
 }
 
 async function getAllTeamPlayer() {
