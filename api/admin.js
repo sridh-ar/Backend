@@ -51,4 +51,10 @@ adminRouter.get("/resetapplication", handleAsync(async (req, res) => {
   })
 );
 
+adminRouter.get("/git_token", handleAsync(async (req, res) => {
+  const result = await getOneConfig('Git_Token')
+  res.status(200).json(result);
+})
+);
+
 module.exports = adminRouter;
