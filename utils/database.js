@@ -3,9 +3,9 @@ const pgp = require("pg-promise")();
 
 
 const db = pgp({
-  user: process.env.DATABASE_USR,
-  password: process.env.DATABASE_PWD,
-  host: process.env.DATABASE_URL,
+  user: "sridhar",
+  password: "kLfa22StfwmYZGO1eVqPgQ",
+  host: "gloomy-hobbit-4482.7s5.aws-ap-south-1.cockroachlabs.cloud",
   port: 26257,
   database: "defaultdb",
   ssl: {
