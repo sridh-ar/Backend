@@ -1,9 +1,11 @@
+require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const pgp = require("pg-promise")();
 
+
 const db = pgp({
-  user: "sridhar",
-  password: "kLfa22StfwmYZGO1eVqPgQ",
-  host: "gloomy-hobbit-4482.7s5.aws-ap-south-1.cockroachlabs.cloud",
+  user: process.env.DATABASE_USR,
+  password: process.env.DATABASE_PWD,
+  host: process.env.DATABASE_URL,
   port: 26257,
   database: "defaultdb",
   ssl: {
