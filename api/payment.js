@@ -7,10 +7,11 @@ const paymentRouter = Router();
 const crypto = require("crypto");
 const Razorpay = require("razorpay");
 const { db, pgpHelpers } = require("../utils/database");
+const { getOneConfig } = require('./services/admin-service')
 
 paymentRouter.get("/getKey", async (req, res) => {
     try {
-        const key = process.env.RAZORPAY_TEST_KEY_ID;
+        const key = (await getOneConfig('RasorPay_Key'))["config_value"];
         if (!key) {
             return res.status(500).json({ error: "Razorpay Key ID is missing" });
         }
@@ -33,8 +34,8 @@ paymentRouter.post("/create-order", async (req, res) => {
 
     try {
         const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_TEST_KEY_ID,
-            key_secret: process.env.RAZORPAY_TEST_KEY_SECRET,
+            key_id: (await getOneConfig('RasorPay_Key'))["config_value"],
+            key_secret: (await getOneConfig('RasorPay_Secret'))["config_value"],
         });
 
         const order = await razorpay.orders.create(options);
@@ -59,7 +60,7 @@ paymentRouter.post("/verify-payment", async (req, res) => {
         userId,
     });
 
-    const secret = process.env.RAZORPAY_TEST_KEY_SECRET;
+    const secret = (await getOneConfig('RasorPay_Secret'))["config_value"];;
     const generatedSignature = crypto.createHmac("sha256", secret)
         .update(`${razorpay_order_id}|${razorpay_payment_id}`)
         .digest("hex");
