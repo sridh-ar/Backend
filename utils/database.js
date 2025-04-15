@@ -7,7 +7,7 @@ const db = pgp({
   password: "kLfa22StfwmYZGO1eVqPgQ",
   host: "gloomy-hobbit-4482.7s5.aws-ap-south-1.cockroachlabs.cloud",
   port: 26257,
-  database: "defaultdb",
+  database: "new_db",
   ssl: {
     rejectUnauthorized: true, // Set to true to enforce SSL validation
   },
