@@ -14,6 +14,7 @@ app.use("/team", require("./team"));
 app.use("/teamPlayer", require("./teamPlayer"));
 app.use("/auth", require("./auth"));
 app.use("/payment", require("./payment"));
+app.use("/gym", require("./gym"));
 
 app.listen(3001, () => {
   console.log("Server is Running in the port 3001");
