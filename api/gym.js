@@ -79,7 +79,7 @@ gymRouter.get("/deleteWorkout", handleAsync(async (req, res) => {
 gymRouter.get("/getWeight", handleAsync(async (req, res) => {
     // const id = req.query.id;
 
-    const response = await db.oneOrNone(`select date(date)::text ,weight from gym.weight order by date desc limit 1`);
+    const response = await db.oneOrNone(`select date("updatedOn")::text ,weight from gym.weight order by "updatedOn" desc limit 1`);
     res.status(200).json(response)
   })
 );
