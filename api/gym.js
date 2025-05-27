@@ -67,4 +67,31 @@ gymRouter.post("/addWorkoutSet", handleAsync(async (req, res) => {
   })
 );
 
+
+gymRouter.get("/deleteWorkout", handleAsync(async (req, res) => {
+    const id = req.query.id;
+
+    const response = await db.oneOrNone(`delete from gym.workouts where id = '${id}'`);
+    res.status(200).json(response)
+  })
+);
+
+gymRouter.get("/getWeight", handleAsync(async (req, res) => {
+    // const id = req.query.id;
+
+    const response = await db.oneOrNone(`select date(date)::text ,weight from gym.weight order by date desc limit 1`);
+    res.status(200).json(response)
+  })
+);
+
+gymRouter.post("/addWeight", handleAsync(async (req, res) => {
+    const body = req.body;
+
+    const response = await db.oneOrNone(
+      pgpHelpers.insert(body, null, { schema:"gym", table: "weight" }) + " returning weight"
+    );
+    res.status(200).json(response)
+  })
+);
+
 module.exports = gymRouter;
