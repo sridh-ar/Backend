@@ -31,13 +31,14 @@ gymRouter.get("/getExerciseDetails", handleAsync(async (req, res) => {
 
     const query = `
       select 
-        w.id, title ,image_url,date(ws.date)::text,ws.reps,ws.weight,row_number() over(partition by date(date) order by date) as set_num 
+        date(ws.date)::text,
+        ws.reps,
+        ws.weight,
+        row_number() over(partition by date(date) order by date) as set_num 
       from 
-        gym.workouts w
-      left join 
-        gym.workout_sets ws on ws.workout_id = w.id
+        gym.workout_sets ws
       where 
-        w.id = ${exerciseId}
+        ws.workout_id = ${exerciseId}
       order by 
         date(ws.date) desc
     `
