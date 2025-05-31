@@ -41,6 +41,7 @@ gymRouter.get("/getExerciseDetails", handleAsync(async (req, res) => {
         ws.workout_id = ${exerciseId}
       order by 
         date(ws.date) desc
+      limit 9
     `
     const resut = await db.manyOrNone(query)
     res.status(200).json(resut);
