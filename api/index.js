@@ -12,6 +12,7 @@ app.use("/main", require("./main"));
 app.use("/player", require("./player"));
 app.use("/team", require("./team"));
 app.use("/teamPlayer", require("./teamPlayer"));
+app.use("/tournament", require("./tournament"));
 app.use("/auth", require("./auth"));
 app.use("/payment", require("./payment"));
 app.use("/gym", require("./gym"));
