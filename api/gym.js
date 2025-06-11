@@ -73,7 +73,7 @@ gymRouter.post("/addWorkoutSet", handleAsync(async (req, res) => {
 gymRouter.get("/deleteWorkout", handleAsync(async (req, res) => {
     const id = req.query.id;
 
-    const response = await db.oneOrNone(`delete from gym.workouts where id = '${id}'`);
+    const response = await db.oneOrNone(`delete from gym.workouts where id = '${id}' returning id`);
     res.status(200).json(response)
   })
 );
