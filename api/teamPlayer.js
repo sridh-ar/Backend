@@ -69,7 +69,7 @@ async function insertTeamPlayer(data) {
   const pointsLeftAfterThisPlayer = remaining_points_available - currentPlayerPoints;
   const minRequiredPointsForOthers = (remaining_slots - 1) * basePoint;
 
-  if (pointsLeftAfterThisPlayer <= minRequiredPointsForOthers) {
+  if (pointsLeftAfterThisPlayer < minRequiredPointsForOthers) {
     throw new Error(`You won't have enough points to pick ${remaining_slots - 1} more player(s). Minimum required points: ${minRequiredPointsForOthers}`);
   }
 
